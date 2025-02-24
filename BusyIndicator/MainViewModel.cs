@@ -18,17 +18,17 @@ namespace BusyIndicator
             }
         }
 
-        public ObservableCollection<string>? NewsHeadlines { get; set; }
+        public ObservableCollection<Model>? NewsHeadlines { get; set; }
         public ICommand? RefreshNewsCommand { get; }
 
         public MainViewModel()
         {
-            NewsHeadlines = new ObservableCollection<string>
+            NewsHeadlines = new ObservableCollection<Model>
             {
-                "Breaking: Market hits all-time high",
-                "Local Sports: Team wins championship",
-                "Weather Update: Storm approaching",
-                "Technology: New smartphone released"
+                new Model(){ Title="Breaking: ", Description="Market hits all-time high"},
+                new Model(){ Title="Local Sports: ", Description="Team wins championship"},
+                new Model(){ Title="Weather Update: ", Description="Storm approaching"},
+                new Model(){ Title="Technology: ", Description="New smartphone released"},
             };
             RefreshNewsCommand = new Command(async () => await RefreshNewsAsync());
         }
@@ -37,8 +37,8 @@ namespace BusyIndicator
         {
             IsBusy = true;
             await Task.Delay(2000); 
-            NewsHeadlines?.Add("Health: New fitness trends for 2025");
-            NewsHeadlines?.Add("Finance: Stocks see major surge");
+            NewsHeadlines?.Add(new Model() { Title = "Health: ", Description = "New fitness trends for 2025" });
+            NewsHeadlines?.Add(new Model() { Title = "Finance: ", Description = "Stocks see major surge" });
             IsBusy = false;
         }
 
